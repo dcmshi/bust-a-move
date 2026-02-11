@@ -17,6 +17,20 @@ import { audio as audioMap } from './assets.js';
 // Key of the track that is currently playing (or null).
 let currentKey = null;
 
+// Global one-shot unlock: as soon as ANY pointer or key event fires,
+// retry the pending track. Browsers unblock audio on the first user gesture.
+function _unlockHandler() {
+  if (currentKey) {
+    const el = audioMap[currentKey];
+    if (el && el.paused) {
+      _applyVolume(el);
+      el.play().catch(() => {});
+    }
+  }
+}
+document.addEventListener('pointerdown', _unlockHandler);
+document.addEventListener('keydown',     _unlockHandler);
+
 // Volume state (applied to every element on play and on change).
 let _volume = 0.3;
 let _muted  = false;
@@ -72,14 +86,7 @@ export function playLoop(key) {
   el.loop        = true;
   el.currentTime = 0;
   _applyVolume(el);
-  el.play().catch(() => {
-    // Autoplay blocked — retry on the next user gesture (click or key).
-    const retry = () => {
-      if (currentKey === key) el.play().catch(() => {});
-    };
-    document.addEventListener('pointerdown', retry, { once: true });
-    document.addEventListener('keydown',     retry, { once: true });
-  });
+  el.play().catch(() => {}); // blocked autoplay is recovered by the global _unlockHandler
 }
 
 /**
