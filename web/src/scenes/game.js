@@ -108,8 +108,8 @@ export function enter() {
 export function update() {
   // ── Angle control (always active) ──────────────────────────────────────────
   if (state !== 'flying') {
-    if (keys.has('ArrowLeft'))  ang = Math.max(ang - 1, 30);
-    if (keys.has('ArrowRight')) ang = Math.min(ang + 1, 150);
+    if (keys.has('ArrowLeft'))  ang = Math.min(ang + 1, 150);
+    if (keys.has('ArrowRight')) ang = Math.max(ang - 1, 30);
   }
 
   // ── Fire (one-shot — fire only on the first frame space is pressed) ─────────
