@@ -134,7 +134,7 @@ web/
 - Turing pre-rendered 180 rotated images for performance (2007 hardware)
 - JS port uses `ctx.save/translate/rotate/restore` per frame — trivially fast at 60fps
 - Rotation pivot in image: `(cx=63, cy=img.height-59)` (cy=59 was from bottom in Turing)
-- `ctx.rotate((ang - 90) * Math.PI / 180)` — ang=90 is straight up, no rotation needed
+- `ctx.rotate((90 - ang) * Math.PI / 180)` — ang=90 is straight up, no rotation needed; sign is flipped relative to Turing because canvas ctx.rotate is CW-positive while Turing Pic.Rotate is CCW-positive
 
 ### BMP transparency (known issue)
 - Original uses `picMerge` mode which treats black pixels as transparent

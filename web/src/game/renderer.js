@@ -116,8 +116,14 @@ export function drawHUD(ctx, nextColorId, lives) {
  *
  * Placed at Turing bottom-left (maxx/2 - 65, 0) = (254, 0).
  *
- * Rotation: in Turing's y-up space, CCW by (ang-90)° is visually the same
- * as CW by (ang-90)° in canvas y-down space → ctx.rotate((ang-90) * π/180).
+ * Rotation: Turing Pic.Rotate uses CCW-positive (standard math). In Turing's
+ * y-up space, rotating by (ang-90)° CCW looks the same as rotating by
+ * (ang-90)° CW in canvas y-down space — HOWEVER, canvas ctx.rotate uses
+ * CW-positive, so the sign must be flipped: use (90-ang) not (ang-90).
+ *
+ *   ang=90  → 0°    → no rotation  → straight up       ✓
+ *   ang=30  → +60°  → CW 60°       → points upper-right ✓ (vx > 0)
+ *   ang=150 → -60°  → CCW 60°      → points upper-left  ✓ (vx < 0)
  *
  * @param {number} ang  Current cannon angle in degrees (30–150, 90 = straight up).
  */
@@ -136,7 +142,7 @@ export function drawShooter(ctx, ang) {
   const pivotX = drawX + pivotInImgX;       // ≈ 317
   const pivotY = drawY + pivotInImgY;       // ≈ 450 - 59 = 391
 
-  const radians = (ang - 90) * Math.PI / 180;
+  const radians = (90 - ang) * Math.PI / 180;
 
   ctx.save();
   ctx.translate(pivotX, pivotY);
