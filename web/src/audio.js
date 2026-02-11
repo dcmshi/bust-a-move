@@ -32,7 +32,7 @@ document.addEventListener('pointerdown', _unlockHandler);
 document.addEventListener('keydown',     _unlockHandler);
 
 // Volume state (applied to every element on play and on change).
-let _volume = 0.3;
+let _volume = 0.1;
 let _muted  = false;
 
 /** Apply current volume/mute to a single audio element. */
