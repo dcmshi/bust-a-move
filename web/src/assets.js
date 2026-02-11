@@ -22,8 +22,8 @@ const IMAGE_MANIFEST = {
   instructions:     '../instructions.bmp',
   next:             '../next.bmp',
   man:              '../man.bmp',
-  // Shooter
-  shooter:          '../shooter.bmp',
+  // Shooter (PNG with transparency — converted by convert-assets.js)
+  shooter:          'assets/shooter.png',
   gun:              '../gun.bmp',
   // Lives HUD
   life1:            '../life1.bmp',
@@ -37,15 +37,15 @@ const IMAGE_MANIFEST = {
   // Game over screens
   gameover:         '../gameover.bmp',
   gameover2:        '../gameover2.bmp',
-  // Bubbles — keys match Turing colour IDs 1–8
-  bubble1:          '../bluebubble.bmp',
-  bubble2:          '../greenbubble.bmp',
-  bubble3:          '../greybubble.bmp',
-  bubble4:          '../orangebubble.bmp',
-  bubble5:          '../purplebubble.bmp',
-  bubble6:          '../yellowbubble.bmp',
-  bubble7:          '../redbubble.bmp',
-  bubble8:          '../whitebubble.bmp',
+  // Bubbles — PNG with transparency (converted by convert-assets.js)
+  bubble1:          'assets/bluebubble.png',
+  bubble2:          'assets/greenbubble.png',
+  bubble3:          'assets/greybubble.png',
+  bubble4:          'assets/orangebubble.png',
+  bubble5:          'assets/purplebubble.png',
+  bubble6:          'assets/yellowbubble.png',
+  bubble7:          'assets/redbubble.png',
+  bubble8:          'assets/whitebubble.png',
 };
 
 const AUDIO_MANIFEST = {
