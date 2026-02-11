@@ -102,10 +102,23 @@ All assets are in the project root alongside the source file.
 
 ## Running the Game
 
-### Option 1: Pre-compiled executable
+### Option 1: Browser port (JavaScript)
+A full browser port lives in `web/`. It requires a local HTTP server (ES modules don't work over `file://`).
+
+**Using Node.js / nvm:**
+```
+nvm install lts
+nvm use lts
+npx serve .
+```
+Then open **`http://localhost:3000/web/`** in your browser.
+
+> Serve from the project root (`.`), not `web/` — the assets (BMP/MP3) live in the root and are referenced via `../` from `web/src/assets.js`.
+
+### Option 2: Pre-compiled executable
 Double-click `Bust-A-Move Bust!.exe`. Requires all BMP and MP3 files to be in the same directory.
 
-### Option 2: Open Turing IDE
+### Option 3: Open Turing IDE
 1. Install [Open Turing](http://tristan.hume.ca/openturing/).
 2. Open `Bust-A-Move Bust!.t` in the IDE.
 3. Press **F2** (or Run → Run) to start.
