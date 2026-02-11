@@ -170,6 +170,13 @@ export function update() {
     nextColorId    = randColorId();
     state          = 'idle';
 
+    // If this turn's pop/drop removed the last bubble of the current colour,
+    // re-pick so the shooter is never loaded with a colour absent from the board.
+    const onBoard = colorsOnGrid();
+    if (onBoard.length > 0 && !onBoard.includes(currentColorId)) {
+      currentColorId = randColorId();
+    }
+
     // 6. Check: did any bubble reach the last row? (checked AFTER popping)
     if (hasBubbleInLastRow()) {
       if (lives > 1) {
