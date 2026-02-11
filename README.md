@@ -104,6 +104,8 @@ All assets are in the project root alongside the source file.
 
 **[https://bust-a-move.onrender.com](https://bust-a-move.onrender.com)**
 
+![Bust-A-Move Bust! screenshot](game_screenshot.png)
+
 ---
 
 ## Running the Game
