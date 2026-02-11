@@ -50,8 +50,25 @@ let spaceWasDown   = false;   // one-shot space detection (fire on first press o
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
+/** Returns the unique colour IDs currently present in the grid. */
+function colorsOnGrid() {
+  const found = new Set();
+  for (let row = 0; row < ROWS; row++) {
+    for (let col = 0; col < COLS; col++) {
+      if (grid[row][col]) found.add(grid[row][col]);
+    }
+  }
+  return [...found];
+}
+
+/**
+ * Pick a random colour from the ones still on the grid.
+ * Falls back to 1–8 if the grid happens to be empty (e.g. mid-transition).
+ */
 function randColorId() {
-  return Math.floor(Math.random() * 8) + 1;  // 1–8
+  const colors = colorsOnGrid();
+  if (colors.length === 0) return Math.floor(Math.random() * 8) + 1;
+  return colors[Math.floor(Math.random() * colors.length)];
 }
 
 /** Start a fresh level (or the next one). Resets per-level state. */
