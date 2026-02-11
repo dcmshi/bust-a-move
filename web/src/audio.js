@@ -72,7 +72,14 @@ export function playLoop(key) {
   el.loop        = true;
   el.currentTime = 0;
   _applyVolume(el);
-  el.play().catch(() => {}); // silently ignore autoplay-policy blocks
+  el.play().catch(() => {
+    // Autoplay blocked — retry on the next user gesture (click or key).
+    const retry = () => {
+      if (currentKey === key) el.play().catch(() => {});
+    };
+    document.addEventListener('pointerdown', retry, { once: true });
+    document.addEventListener('keydown',     retry, { once: true });
+  });
 }
 
 /**
