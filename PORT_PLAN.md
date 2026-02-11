@@ -136,10 +136,11 @@ web/
 - Rotation pivot in image: `(cx=63, cy=img.height-59)` (cy=59 was from bottom in Turing)
 - `ctx.rotate((90 - ang) * Math.PI / 180)` — ang=90 is straight up, no rotation needed; sign is flipped relative to Turing because canvas ctx.rotate is CW-positive while Turing Pic.Rotate is CCW-positive
 
-### BMP transparency (known issue)
-- Original uses `picMerge` mode which treats black pixels as transparent
-- BMP files have no alpha channel — bubbles will show with black rectangles until images are converted to PNG with proper alpha transparency
-- Recommendation: use an image editor or script to convert all `.bmp` → `.png` with black (`#000000`) as the transparent colour, then update `assets.js` paths
+### BMP transparency
+- Original uses `picMerge` mode which treats the background colour as transparent
+- **Resolved:** `convert-assets.js` (project root) converts bubble + shooter BMPs to PNG using the top-left pixel as the colour key. Run once: `npm install jimp && node convert-assets.js`
+- Output goes to `web/assets/*.png`; `assets.js` already references these paths
+- Other sprites (backgrounds, HUD frames, full-screen images) are left as BMP — they don't need transparency
 
 ### Bubble canvas
 - `ballBackground := Pic.New(190, 90, 448, 404)` in Turing → offscreen `bubbleCanvas` (full 640×450)
@@ -163,5 +164,28 @@ web/
 ### Active bubble position
 - Stored as **canvas-space centre** `{ x, y }` throughout the JS port
 - Turing stored bottom-left in its y-up space; initial position `(302, 39)` in Turing = canvas centre `(318, 395)`
-- Wall bounds (canvas x): left wall ≤ 190, right wall ≥ 448
-- Ceiling (canvas y): ≤ 45 (top of grid row 0 minus bubble radius)
+- Wall bounds (canvas x): left wall ≤ 206, right wall ≥ 436 (centre coords, verified against source)
+- Ceiling (canvas y): ≤ 64
+
+---
+
+## Post-Port Fixes & Features
+
+### Shooter rotation fix
+- Initial port used `(ang - 90)` — wrong sign; shooter pointed opposite to bullet direction
+- Fix: `(90 - ang) * Math.PI / 180` — canvas `ctx.rotate` is CW-positive, Turing `Pic.Rotate` is CCW-positive
+
+### Arrow key direction fix
+- Turing's original key mapping: left arrow → `ang -= 1`, right arrow → `ang += 1`
+- With the corrected rotation formula this felt inverted to the player
+- Fix: swapped to left → `ang += 1` (CCW, toward 150°), right → `ang -= 1` (CW, toward 30°)
+
+### Level-aware bubble colours
+- `randColorId()` in `game.js` now scans the live grid each call and returns only colours present on the board
+- After pops/drops remove a colour entirely it disappears from the pool immediately
+- Falls back to 1–8 if the grid is empty (mid-level-transition edge case)
+
+### Transparent sprites (`convert-assets.js`)
+- One-time script: reads bubble BMPs + `shooter.bmp`, keys out the top-left pixel colour, writes PNGs to `web/assets/`
+- `assets.js` updated to reference `assets/*.png` for bubbles and shooter
+- Run: `npm install jimp && node convert-assets.js` from the project root
