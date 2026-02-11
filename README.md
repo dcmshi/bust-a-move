@@ -133,19 +133,6 @@ Double-click `Bust-A-Move Bust!.exe`. Requires all BMP and MP3 files to be in th
 
 ---
 
-## Potential Port Targets
-
-This project was written in a teaching language no longer actively maintained. Good candidates for a modern port include:
-
-- **Python** with `pygame` — closest to Turing's procedural style; good for a faithful port.
-- **TypeScript/JavaScript** with `<canvas>` — runs in the browser with no install required.
-- **Rust** with `macroquad` or `bevy` — modern, performant, good for learning systems programming.
-- **Go** with `ebiten` — simple, fast 2D game library with a similar single-file feel.
-
-The main rewrite challenges are the recursive `colourCheck`/`colourCountCheck` logic (deep call stacks on larger groups) and the hex-grid neighbor calculations for odd/even rows.
-
----
-
 ## License
 
 School project — no explicit license. Graphics and music are from their respective original owners.
