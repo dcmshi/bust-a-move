@@ -56,7 +56,9 @@ export function redrawBubbleCanvas(bc, grid) {
       if (!color) continue;
       const center = CELL_CENTERS[row][col];
       if (!center) continue;
-      ctx.drawImage(getBubbleImage(color), center.x - 16, center.y - 16);
+      const img = getBubbleImage(color);
+      if (!img) continue;
+      ctx.drawImage(img, center.x - 16, center.y - 16);
     }
   }
 }
@@ -65,7 +67,8 @@ export function redrawBubbleCanvas(bc, grid) {
 
 /** Draw the level background image. */
 export function drawBackground(ctx, level) {
-  ctx.drawImage(getBackground(level), 0, 0);
+  const bg = getBackground(level);
+  if (bg) ctx.drawImage(bg, 0, 0);
 }
 
 /** Blit the offscreen bubble canvas onto the main canvas. */
@@ -89,22 +92,16 @@ export function drawBubbleCacheLayer(ctx, bc) {
 export function drawHUD(ctx, nextColorId, lives) {
   const { gun, next, man, life1, life2, life3 } = images;
 
-  // Gun base
-  ctx.drawImage(gun,  255, tY(0, gun.height));
+  if (gun)  ctx.drawImage(gun,  255, tY(0, gun.height));
+  if (next) ctx.drawImage(next, 225, tY(35, next.height));
 
-  // "NEXT" label
-  ctx.drawImage(next, 225, tY(35, next.height));
+  const previewImg = getBubbleImage(nextColorId);
+  if (previewImg) ctx.drawImage(previewImg, 259, tY(0, BUBBLE_SIZE));
 
-  // Preview bubble (the one queued after the current shot)
-  ctx.drawImage(getBubbleImage(nextColorId), 259, tY(0, BUBBLE_SIZE));
+  if (man) ctx.drawImage(man, 370, tY(0, man.height));
 
-  // Man decoration
-  ctx.drawImage(man, 370, tY(0, man.height));
-
-  // Lives indicator (Turing life3 is at y=415, life2/1 at y=416 — 1px difference
-  // in the original; we normalise to y=415 for all)
   const lifeImg = lives >= 3 ? life3 : lives === 2 ? life2 : life1;
-  ctx.drawImage(lifeImg, 507, tY(415, lifeImg.height));
+  if (lifeImg) ctx.drawImage(lifeImg, 507, tY(415, lifeImg.height));
 }
 
 /**
@@ -129,6 +126,7 @@ export function drawHUD(ctx, nextColorId, lives) {
  */
 export function drawShooter(ctx, ang) {
   const img = images.shooter;
+  if (!img) return;
 
   // Pivot within the image in canvas space (y from top)
   const pivotInImgX = 63;
@@ -158,7 +156,9 @@ export function drawShooter(ctx, ang) {
  * @param {number} colorId  Colour ID (1–8).
  */
 export function drawActiveBubble(ctx, cx, cy, colorId) {
-  ctx.drawImage(getBubbleImage(colorId), cx - BUBBLE_SIZE / 2, cy - BUBBLE_SIZE / 2);
+  const img = getBubbleImage(colorId);
+  if (!img) return;
+  ctx.drawImage(img, cx - BUBBLE_SIZE / 2, cy - BUBBLE_SIZE / 2);
 }
 
 /**
@@ -195,13 +195,9 @@ export function drawIntroScreen(ctx, hover) {
 
   // Title: Turing (maxx/2-148, maxy/2-152) = (171, 72)
   const { mainTitle, play, what } = images;
-  ctx.drawImage(mainTitle, 171, tY(72, mainTitle.height));
-
-  // Play button image: Turing (15, 180)
-  ctx.drawImage(play, 15, tY(180, play.height));
-
-  // Instructions ("what") button image: Turing (483, 178)
-  ctx.drawImage(what, 483, tY(178, what.height));
+  if (mainTitle) ctx.drawImage(mainTitle, 171, tY(72, mainTitle.height));
+  if (play)      ctx.drawImage(play, 15, tY(180, play.height));
+  if (what)      ctx.drawImage(what, 483, tY(178, what.height));
 
   // Hover outlines — triple border, each offset 1px outward (matches original drawbox calls)
   // Play:  drawbox(12,173,161,246) | drawbox(11,172,162,247) | drawbox(10,171,163,248)
@@ -220,10 +216,8 @@ export function drawInstructionsScreen(ctx, hover) {
   ctx.fillRect(0, 0, W, H);
 
   const { back, instructions } = images;
-  // Back button: Turing (240, 5)
-  ctx.drawImage(back, 240, tY(5, back.height));
-  // Instructions image: Turing (16, 50)
-  ctx.drawImage(instructions, 16, tY(50, instructions.height));
+  if (back)         ctx.drawImage(back, 240, tY(5, back.height));
+  if (instructions) ctx.drawImage(instructions, 16, tY(50, instructions.height));
 
   // Hover outline: drawbox(240,8,422,40)
   ctx.strokeStyle = '#ffffff';
@@ -236,8 +230,8 @@ export function drawInstructionsScreen(ctx, hover) {
 // ── Game over / win screens ───────────────────────────────────────────────────
 
 export function drawGameOverScreen(ctx, won) {
-  // These images are full-screen (640×450) so no coordinate conversion needed.
-  ctx.drawImage(won ? images.gameover2 : images.gameover, 0, 0);
+  const img = won ? images.gameover2 : images.gameover;
+  if (img) ctx.drawImage(img, 0, 0);
 }
 
 // ── Private helpers ───────────────────────────────────────────────────────────
