@@ -137,6 +137,7 @@ function keyOutBackground(rgba, width, height, pixelIndex = 0) {
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 const ROOT   = __dirname;
+const INPUT  = path.join(ROOT, 'assets');
 const OUTPUT = path.join(ROOT, 'web', 'assets');
 const FILES  = [
   'bluebubble.bmp',
@@ -161,7 +162,7 @@ if (!fs.existsSync(OUTPUT)) fs.mkdirSync(OUTPUT, { recursive: true });
 console.log('Converting sprites…\n');
 let ok = 0, fail = 0;
 for (const filename of FILES) {
-  const src  = path.join(ROOT, filename);
+  const src  = path.join(INPUT, filename);
   const dest = path.join(OUTPUT, filename.replace('.bmp', '.png'));
   try {
     const { width, height, rgba } = decodeBMP(fs.readFileSync(src));

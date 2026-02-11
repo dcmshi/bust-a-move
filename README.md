@@ -1,6 +1,6 @@
 # Bust-A-Move Bust!
 
-![Bust-A-Move Bust! title](mainTitle.bmp)
+![Bust-A-Move Bust! title](assets/mainTitle.bmp)
 
 A Bust-A-Move / Bubble Bobble clone written in **Turing** (Open Turing), created as a school project at Turing in June 2007.
 
@@ -89,15 +89,16 @@ Each level plays a different MP3 track using `Music.PlayFileLoop`:
 
 ## Assets
 
-All assets are in the project root alongside the source file.
+Assets are organised into subfolders:
 
-**Graphics (BMP):**
+**`assets/` — Graphics (BMP):**
 `back`, `bluebubble`, `gameover`, `gameover2`, `greenbubble`, `greybubble`, `gun`, `instructions`, `levelbackground` (×4), `life1/2/3`, `mainTitle`, `man`, `next`, `orangebubble`, `play`, `purplebubble`, `redbubble`, `shooter`, `what`, `whitebubble`, `yellowbubble`
 
-**Music (MP3):**
-6 tracks bundled in the project root (see table above).
+**`music/` — Tracks (MP3):**
+7 tracks (see table above).
 
-**Executable:**
+**`turing/` — Original source:**
+`Bust-A-Move Bust!.t` — Turing source file.
 `Bust-A-Move Bust!.exe` — pre-compiled Windows executable for running without the Turing IDE.
 
 ---
@@ -137,11 +138,11 @@ To redeploy or fork your own instance:
 > BMP and MP3 assets are served from the project root and referenced via `../` from `web/src/assets.js`.
 
 ### Option 3: Pre-compiled executable
-Double-click `Bust-A-Move Bust!.exe`. Requires all BMP and MP3 files to be in the same directory.
+Double-click `turing/Bust-A-Move Bust!.exe`. Requires all BMP and MP3 files to be in the same directory as the executable.
 
 ### Option 4: Open Turing IDE
 1. Install [Open Turing](http://tristan.hume.ca/openturing/).
-2. Open `Bust-A-Move Bust!.t` in the IDE.
+2. Open `turing/Bust-A-Move Bust!.t` in the IDE.
 3. Press **F2** (or Run → Run) to start.
 
 ---
