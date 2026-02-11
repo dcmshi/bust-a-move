@@ -137,13 +137,12 @@ To redeploy or fork your own instance:
 
 > BMP and MP3 assets are served from the project root and referenced via `../` from `web/src/assets.js`.
 
-### Option 3: Pre-compiled executable
-Double-click `turing/Bust-A-Move Bust!.exe`. Requires all BMP and MP3 files to be in the same directory as the executable.
-
-### Option 4: Open Turing IDE
+### Option 3: Open Turing IDE
 1. Install [Open Turing](http://tristan.hume.ca/openturing/).
 2. Open `turing/Bust-A-Move Bust!.t` in the IDE.
 3. Press **F2** (or Run → Run) to start.
+
+> **Note:** The pre-compiled `Bust-A-Move Bust!.exe` is outdated following the project reorganisation and the Open Turing installer is no longer available for download. The recommended way to play is the **[browser version](https://bust-a-move.onrender.com)**.
 
 ---
 
