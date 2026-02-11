@@ -65,11 +65,70 @@
       background: #fff;
       transition: width 80ms linear;
     }
+
+    #audio-controls {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 6px;
+      padding: 4px 8px;
+    }
+
+    #mute-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      padding: 0;
+      color: #fff;
+      user-select: none;
+    }
+
+    #vol-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 80px;
+      height: 4px;
+      border-radius: 2px;
+      background: #888;
+      outline: none;
+      cursor: pointer;
+    }
+
+    #vol-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    #vol-slider::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      border: none;
+    }
   </style>
 </head>
 <body>
   <div id="wrapper">
     <canvas id="main-canvas" width="640" height="450"></canvas>
+
+    <div id="audio-controls">
+      <button id="mute-btn" title="Toggle mute">🔊</button>
+      <input id="vol-slider" type="range" min="0" max="100" value="30" title="Volume">
+    </div>
 
     <div id="loading">
       <h1>BUST-A-MOVE BUST!</h1>
@@ -81,5 +140,26 @@
   </div>
 
   <script type="module" src="src/main.js"></script>
+  <script type="module">
+    import { setVolume, setMuted, getVolume, getMuted } from './src/audio.js';
+
+    const muteBtn   = document.getElementById('mute-btn');
+    const volSlider = document.getElementById('vol-slider');
+
+    volSlider.addEventListener('input', () => {
+      setVolume(volSlider.value / 100);
+      // If the user adjusts the slider while muted, unmute automatically.
+      if (getMuted()) {
+        setMuted(false);
+        muteBtn.textContent = '🔊';
+      }
+    });
+
+    muteBtn.addEventListener('click', () => {
+      const nowMuted = !getMuted();
+      setMuted(nowMuted);
+      muteBtn.textContent = nowMuted ? '🔇' : '🔊';
+    });
+  </script>
 </body>
 </html>

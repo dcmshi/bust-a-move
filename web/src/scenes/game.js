@@ -77,6 +77,9 @@ function loadLevel() {
   redrawBubbleCanvas(bc, grid);
   audio.stop();
   audio.playLoop(trackForLevel(level));
+  // Pick colours AFTER the grid is populated so randColorId sees the real colour set.
+  currentColorId = randColorId();
+  nextColorId    = randColorId();
 }
 
 /** Check whether any cell in the last row (row 11) is occupied. */
@@ -113,8 +116,6 @@ export function enter() {
   state          = 'idle';
   activeBubble   = null;
   spaceWasDown   = false;
-  currentColorId = randColorId();
-  nextColorId    = randColorId();
   loadLevel();
 }
 
@@ -184,9 +185,7 @@ export function update() {
       if (level > LEVEL_COUNT) {
         return 'gameover-win';
       }
-      loadLevel();            // advance to next level
-      currentColorId = randColorId();
-      nextColorId    = randColorId();
+      loadLevel();            // advance to next level (also refreshes colour picks)
     }
   }
 
