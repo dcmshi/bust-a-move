@@ -17,11 +17,11 @@
  ----------------------------------------------------------------------- */
 
 drawfillbox (0, 0, maxx, maxy, 58)
-Pic.ScreenLoad ("mainTitle.bmp", maxx div 2 - 148, maxy div 2 - 152, picCopy)
-Pic.ScreenLoad ("play.bmp", 15, 180, picMerge)
-Pic.ScreenLoad ("what.bmp", 483, 178, picMerge)
+Pic.ScreenLoad ("../turing_assets/mainTitle.bmp", maxx div 2 - 148, maxy div 2 - 152, picCopy)
+Pic.ScreenLoad ("../turing_assets/play.bmp", 15, 180, picMerge)
+Pic.ScreenLoad ("../turing_assets/what.bmp", 483, 178, picMerge)
 
-Music.PlayFileLoop ("Hellogoodbye - Shimmy Shimmy Quarter Turn.mp3")
+Music.PlayFileLoop ("../music/Hellogoodbye - Shimmy Shimmy Quarter Turn.mp3")
 
 loop %when loop exits, the real game begins
     var mx, my, mb : int
@@ -35,8 +35,8 @@ loop %when loop exits, the real game begins
 	drawbox (10, 171, 163, 248, white)
     elsif mb = 1 and mx > 484 and mx <= 629 and my >= 171 and my <= 253 then %instructions screen - gives brief discussion and controls of games
 	drawfillbox (0, 0, maxx, maxy, yellow)
-	Pic.ScreenLoad ("back.bmp", 240, 5, picMerge)
-	Pic.ScreenLoad ("instructions.bmp", 16, 50, picMerge)
+	Pic.ScreenLoad ("../turing_assets/back.bmp", 240, 5, picMerge)
+	Pic.ScreenLoad ("../turing_assets/instructions.bmp", 16, 50, picMerge)
 	loop
 	    mousewhere (mx, my, mb)
 	    if mb = 1 and mx >= 240 and mx <= 422 and my >= 8 and my <= 40 then %back button
@@ -52,9 +52,9 @@ loop %when loop exits, the real game begins
 	    end if
 	end loop
 	drawfillbox (0, 0, maxx, maxy, 58) %goes back to introduction screen
-	Pic.ScreenLoad ("mainTitle.bmp", maxx div 2 - 148, maxy div 2 - 152, picCopy)
-	Pic.ScreenLoad ("play.bmp", 15, 180, picMerge)
-	Pic.ScreenLoad ("what.bmp", 483, 178, picMerge)
+	Pic.ScreenLoad ("../turing_assets/mainTitle.bmp", maxx div 2 - 148, maxy div 2 - 152, picCopy)
+	Pic.ScreenLoad ("../turing_assets/play.bmp", 15, 180, picMerge)
+	Pic.ScreenLoad ("../turing_assets/what.bmp", 483, 178, picMerge)
     elsif mx >= 481 and mx <= 629 and my >= 171 and my <= 253 then
 	drawbox (481, 171, 629, 246, white)
 	drawbox (480, 170, 630, 247, white)
@@ -88,8 +88,8 @@ var shotFired, shotLive : boolean := false %shotFired tells you if the space bar
 var vx, vy : real := 0 %variables for the ball
 %x := maxx div 2 - 18 %where the ball begins
 %y := 39
-var shooterPic := Pic.FileNew ("shooter.bmp") %picID for shooter
-var gunbase := Pic.FileNew ("gun.bmp") %picID for base of shooter
+var shooterPic := Pic.FileNew ("../turing_assets/shooter.bmp") %picID for shooter
+var gunbase := Pic.FileNew ("../turing_assets/gun.bmp") %picID for base of shooter
 var picID : int %variable to take pictures of the shooter in all different angles
 var shooterang : array 1 .. 180 of int %stores picture of the shooter
 var xPos : array 1 .. 8, 1 .. 12 of int %xPos for the contents screen (coordinates)
@@ -98,23 +98,23 @@ var contents : array 1 .. 8, 1 .. 12 of int %an array for the balls (screen)
 var colourCount : int := 1  %used to find if 3 or more bubbles are touching each other
 var i := 1 %global variable used to keep track of ball
 var ballBackground : int := Pic.New (190, 90, 448, 404) %background of where the bubbles land
-var background := Pic.FileNew ("levelbackground2.bmp")
+var background := Pic.FileNew ("../turing_assets/levelbackground2.bmp")
 var coorx : int := 0 %this is x position in the array to assign colours to the content array
 var coory : int := 0 %y position in the array
 var spots : array 1 .. 3000 of bubbleType %array to store 3000 random coloured bubbles
 var level : int := 0 %add 1 to enter the first level, this keeps track of what level you are on
 var lives : int := 3
-var gameoverscreen := Pic.FileNew ("gameover.bmp") %picture when you lose
-var gameoverscreen2 := Pic.FileNew ("gameover2.bmp") %picture when you win
+var gameoverscreen := Pic.FileNew ("../turing_assets/gameover.bmp") %picture when you lose
+var gameoverscreen2 := Pic.FileNew ("../turing_assets/gameover2.bmp") %picture when you win
 var arrayofbubbles : array 1 .. 8 of int %put bubbles into arrays
-arrayofbubbles (1) := Pic.FileNew ("bluebubble.bmp")
-arrayofbubbles (2) := Pic.FileNew ("greenbubble.bmp")
-arrayofbubbles (3) := Pic.FileNew ("greybubble.bmp")
-arrayofbubbles (4) := Pic.FileNew ("orangebubble.bmp")
-arrayofbubbles (5) := Pic.FileNew ("purplebubble.bmp")
-arrayofbubbles (6) := Pic.FileNew ("yellowbubble.bmp")
-arrayofbubbles (7) := Pic.FileNew ("redbubble.bmp")
-arrayofbubbles (8) := Pic.FileNew ("whitebubble.bmp")
+arrayofbubbles (1) := Pic.FileNew ("../turing_assets/bluebubble.bmp")
+arrayofbubbles (2) := Pic.FileNew ("../turing_assets/greenbubble.bmp")
+arrayofbubbles (3) := Pic.FileNew ("../turing_assets/greybubble.bmp")
+arrayofbubbles (4) := Pic.FileNew ("../turing_assets/orangebubble.bmp")
+arrayofbubbles (5) := Pic.FileNew ("../turing_assets/purplebubble.bmp")
+arrayofbubbles (6) := Pic.FileNew ("../turing_assets/yellowbubble.bmp")
+arrayofbubbles (7) := Pic.FileNew ("../turing_assets/redbubble.bmp")
+arrayofbubbles (8) := Pic.FileNew ("../turing_assets/whitebubble.bmp")
 
 for k : 1 .. 180     %takes picture of the shooter in all angles
     picID := Pic.Rotate (shooterPic, round (k) - 90, 63, 59)
@@ -157,14 +157,14 @@ end for
  ----------------------------------------------------------------------- */
 
 proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
-    /*(1)("bluebubble.bmp")
-     (2)("greenbubble.bmp")
-     (3)("greybubble.bmp")
-     (4)("orangebubble.bmp")
-     (5)("purplebubble.bmp")
-     (6)("yellowbubble.bmp")
-     (7)("redbubble.bmp")
-     (8)("whitebubble.bmp")
+    /*(1)("../turing_assets/bluebubble.bmp")
+     (2)("../turing_assets/greenbubble.bmp")
+     (3)("../turing_assets/greybubble.bmp")
+     (4)("../turing_assets/orangebubble.bmp")
+     (5)("../turing_assets/purplebubble.bmp")
+     (6)("../turing_assets/yellowbubble.bmp")
+     (7)("../turing_assets/redbubble.bmp")
+     (8)("../turing_assets/whitebubble.bmp")
      */
 
     for y2 : 1 .. 12 %delete all balls in array for a fresh level
@@ -174,7 +174,7 @@ proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
     end for
 
     if level = 1 then
-	Music.PlayFileLoop ("The Postal Service - Such Great Heights.mp3")
+	Music.PlayFileLoop ("../music/The Postal Service - Such Great Heights.mp3")
 
 	contents (1, 1) := 7 %specify what bubbles are in the array
 	contents (2, 1) := 7
@@ -212,8 +212,8 @@ proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
 
     elsif level = 2 then
 	Music.PlayFileStop
-	Music.PlayFileLoop ("royksopp - Remind Me.mp3")
-	background := Pic.FileNew ("levelbackground3.bmp") %PicID for new background
+	Music.PlayFileLoop ("../music/royksopp - Remind Me.mp3")
+	background := Pic.FileNew ("../turing_assets/levelbackground3.bmp") %PicID for new background
 	Pic.Draw (background, 0, 0, picCopy) %draws new background
 
 	contents (4, 1) := 3
@@ -225,8 +225,8 @@ proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
 
     elsif level = 3 then
 	Music.PlayFileStop
-	Music.PlayFileLoop ("hellogoodbye - here (in your arms).mp3")
-	background := Pic.FileNew ("levelbackground4.bmp")
+	Music.PlayFileLoop ("../music/hellogoodbye - here (in your arms).mp3")
+	background := Pic.FileNew ("../turing_assets/levelbackground4.bmp")
 	Pic.Draw (background, 0, 0, picCopy)
 
 	contents (1, 1) := 2
@@ -258,8 +258,8 @@ proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
 
     elsif level = 4 then
 	Music.PlayFileStop
-	Music.PlayFileLoop ("Techno - Sand Storm.mp3")
-	background := Pic.FileNew ("levelbackground.bmp")
+	Music.PlayFileLoop ("../music/Techno - Sand Storm.mp3")
+	background := Pic.FileNew ("../turing_assets/levelbackground.bmp")
 	Pic.Draw (background, 0, 0, picCopy)
 
 	contents (2, 1) := 7
@@ -290,8 +290,8 @@ proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
 
     elsif level = 5 then
 	Music.PlayFileStop
-	Music.PlayFileLoop ("The Postal Service - Such Great Heights.mp3")
-	background := Pic.FileNew ("levelbackground2.bmp")
+	Music.PlayFileLoop ("../music/The Postal Service - Such Great Heights.mp3")
+	background := Pic.FileNew ("../turing_assets/levelbackground2.bmp")
 	Pic.Draw (background, 0, 0, picCopy)
 
 	contents (2, 1) := 7
@@ -328,8 +328,8 @@ proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
 
     elsif level = 6 then
 	Music.PlayFileStop
-	Music.PlayFileLoop ("royksopp - Remind Me.mp3")
-	background := Pic.FileNew ("levelbackground3.bmp")
+	Music.PlayFileLoop ("../music/royksopp - Remind Me.mp3")
+	background := Pic.FileNew ("../turing_assets/levelbackground3.bmp")
 	Pic.Draw (background, 0, 0, picCopy)
 
 	contents (1, 1) := 7
@@ -380,8 +380,8 @@ proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
 
     elsif level = 7 then
 	Music.PlayFileStop
-	Music.PlayFileLoop ("hellogoodbye - here (in your arms).mp3")
-	background := Pic.FileNew ("levelbackground4.bmp")
+	Music.PlayFileLoop ("../music/hellogoodbye - here (in your arms).mp3")
+	background := Pic.FileNew ("../turing_assets/levelbackground4.bmp")
 	Pic.Draw (background, 0, 0, picCopy)
 
 	contents (4, 1) := 7
@@ -413,8 +413,8 @@ proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
 
     elsif level = 8 then
 	Music.PlayFileStop
-	Music.PlayFileLoop ("Techno - Sand Storm.mp3")
-	background := Pic.FileNew ("levelbackground.bmp")
+	Music.PlayFileLoop ("../music/Techno - Sand Storm.mp3")
+	background := Pic.FileNew ("../turing_assets/levelbackground.bmp")
 	Pic.Draw (background, 0, 0, picCopy)
 
 	contents (1, 1) := 7
@@ -453,8 +453,8 @@ proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
 
     elsif level = 9 then
 	Music.PlayFileStop
-	Music.PlayFileLoop ("The Postal Service - Such Great Heights.mp3")
-	background := Pic.FileNew ("levelbackground2.bmp")
+	Music.PlayFileLoop ("../music/The Postal Service - Such Great Heights.mp3")
+	background := Pic.FileNew ("../turing_assets/levelbackground2.bmp")
 	Pic.Draw (background, 0, 0, picCopy)
 
 	contents (1, 1) := 4
@@ -500,8 +500,8 @@ proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
 
     elsif level = 10 then
 	Music.PlayFileStop
-	Music.PlayFileLoop ("royksopp - Remind Me.mp3")
-	background := Pic.FileNew ("levelbackground3.bmp")
+	Music.PlayFileLoop ("../music/royksopp - Remind Me.mp3")
+	background := Pic.FileNew ("../turing_assets/levelbackground3.bmp")
 	Pic.Draw (background, 0, 0, picCopy)
 
 	contents (4, 1) := 7
@@ -548,8 +548,8 @@ proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
 
     elsif level = 11 then
 	Music.PlayFileStop
-	Music.PlayFileLoop ("hellogoodbye - here (in your arms).mp3")
-	background := Pic.FileNew ("levelbackground4.bmp")
+	Music.PlayFileLoop ("../music/hellogoodbye - here (in your arms).mp3")
+	background := Pic.FileNew ("../turing_assets/levelbackground4.bmp")
 	Pic.Draw (background, 0, 0, picCopy)
 
 	contents (4, 1) := 3
@@ -586,8 +586,8 @@ proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
 
     elsif level = 12 then
 	Music.PlayFileStop
-	Music.PlayFileLoop ("Techno - Sand Storm.mp3")
-	background := Pic.FileNew ("levelbackground.bmp")
+	Music.PlayFileLoop ("../music/Techno - Sand Storm.mp3")
+	background := Pic.FileNew ("../turing_assets/levelbackground.bmp")
 	Pic.Draw (background, 0, 0, picCopy)
 
 	contents (1, 1) := 1
@@ -653,7 +653,7 @@ proc gameLevel (var contents : array 1 .. 8, 1 .. 12 of int)
 
     elsif level = 13 then %level 13 is the game over screen for when you win
 	Music.PlayFileStop
-	Music.PlayFileLoop ("Hot Hot Heat - Talk to Me, Dance with Me.mp3")
+	Music.PlayFileLoop ("../music/Hot Hot Heat - Talk to Me, Dance with Me.mp3")
 
 	loop
 	    cls
@@ -688,7 +688,7 @@ proc gameOver (var contents : array 1 .. 8, 1 .. 12 of int)
 		contents (7, 12) not= 0 then
 
 	    Music.PlayFileStop
-	    Music.PlayFileLoop ("Plain White T's.mp3")
+	    Music.PlayFileLoop ("../music/Plain White T's.mp3")
 
 	    loop
 		cls
@@ -716,18 +716,18 @@ end gameOver
 
 proc drawScene (ang : real, x, y, vx, vy : real)
     Pic.Draw (background, 0, 0, picCopy)
-    Pic.ScreenLoad ("next.bmp", 225, 35, picMerge)
+    Pic.ScreenLoad ("../turing_assets/next.bmp", 225, 35, picMerge)
     Pic.Draw (ballBackground, 190, 90, picCopy)
     Pic.Draw (gunbase, maxx div 2 - 64, 0, picMerge)
     Pic.Draw (arrayofbubbles (spots (i + 1).c), maxx div 2 - 60, 0, picMerge) %preview ball
-    Pic.ScreenLoad ("man.bmp", 370, 0, picMerge)
+    Pic.ScreenLoad ("../turing_assets/man.bmp", 370, 0, picMerge)
 
     if lives = 3 then %displays how much life you have
-	Pic.ScreenLoad ("life3.bmp", 507, 415, picCopy)
+	Pic.ScreenLoad ("../turing_assets/life3.bmp", 507, 415, picCopy)
     elsif lives = 2 then
-	Pic.ScreenLoad ("life2.bmp", 507, 416, picCopy)
+	Pic.ScreenLoad ("../turing_assets/life2.bmp", 507, 416, picCopy)
     else
-	Pic.ScreenLoad ("life1.bmp", 507, 416, picCopy)
+	Pic.ScreenLoad ("../turing_assets/life1.bmp", 507, 416, picCopy)
     end if
 end drawScene
 
