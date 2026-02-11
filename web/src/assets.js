@@ -16,9 +16,9 @@
 const IMAGE_MANIFEST = {
   // UI
   mainTitle:    '../mainTitle.bmp',
-  play:         '../play.bmp',
-  what:         '../what.bmp',
-  back:         '../back.bmp',
+  play:         'assets/play.png',
+  what:         'assets/what.png',
+  back:         'assets/back.png',
   instructions: '../instructions.bmp',
   next:         'assets/next.png',
   man:          'assets/man.png',

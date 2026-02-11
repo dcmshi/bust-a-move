@@ -151,6 +151,9 @@ const FILES  = [
   'gun.bmp',
   'man.bmp',
   'next.bmp',
+  'play.bmp',
+  'what.bmp',
+  'back.bmp',
 ];
 
 if (!fs.existsSync(OUTPUT)) fs.mkdirSync(OUTPUT, { recursive: true });

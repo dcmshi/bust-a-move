@@ -181,12 +181,22 @@ web/
 - Fix: swapped to left → `ang += 1` (CCW, toward 150°), right → `ang -= 1` (CW, toward 30°)
 
 ### Level-aware bubble colours
-- `randColorId()` in `game.js` now scans the live grid each call and returns only colours present on the board
-- After pops/drops remove a colour entirely it disappears from the pool immediately
+- `randColorId()` calls moved inside `loadLevel()` so colours are always picked after `fillLevel()` populates the grid
+- Covers all three paths: initial game start, level advance, and life-loss restart
 - Falls back to 1–8 if the grid is empty (mid-level-transition edge case)
 
 ### Transparent sprites (`convert-assets.js`)
-- Pure Node.js script (no npm needed): reads BMPs, keys out the top-left pixel colour, writes PNGs to `web/assets/`
-- Converted sprites: all 8 bubbles, shooter, gun, man, next label
+- Pure Node.js script (no npm needed): reads BMPs, keys out a corner pixel colour, writes PNGs to `web/assets/`
+- Converted sprites: all 8 bubbles, shooter, gun, man, next (bottom-right key), play, what, back
 - `assets.js` references `assets/*.png` for all converted sprites; remaining UI assets still use `../` BMP paths
 - Run: `node convert-assets.js` from the project root; generated PNGs are committed to the repo
+
+### Volume / mute controls
+- Semi-transparent overlay (top-left of canvas): mute toggle button (🔊/🔇) + volume slider
+- Default volume: 30%
+- `audio.js` exports `setVolume(v)`, `setMuted(bool)`, `getVolume()`, `getMuted()`; volume applied on every `playLoop`/`playOnce` call
+
+### Autoplay unlock
+- Browser autoplay policy blocks audio until first user gesture
+- `audio.js` registers permanent `pointerdown`/`keydown` listeners on `document` that retry the pending track on first interaction
+- Music starts on first click anywhere on the page (loading overlay, canvas, outside canvas)
