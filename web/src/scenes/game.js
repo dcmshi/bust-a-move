@@ -198,5 +198,5 @@ export function update() {
  * @param {CanvasRenderingContext2D} ctx
  */
 export function render(ctx) {
-  drawGameScene(ctx, bc, level, ang, activeBubble, nextColorId, lives);
+  drawGameScene(ctx, bc, level, ang, activeBubble, currentColorId, nextColorId, lives);
 }

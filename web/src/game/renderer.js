@@ -21,6 +21,7 @@
 
 import { images, getBubbleImage, getBackground } from '../assets.js';
 import { CELL_CENTERS, ROWS, COLS, BUBBLE_SIZE } from './grid.js';
+import { SPAWN_X, SPAWN_Y } from './bubble.js';
 
 export const W = 640;
 export const H = 450;
@@ -166,14 +167,19 @@ export function drawActiveBubble(ctx, cx, cy, colorId) {
  * background → bubble cache → HUD → shooter → active bubble.
  *
  * @param {{ x, y, colorId } | null} activeBubble  null when no shot is in flight.
+ * @param {number} currentColorId  Colour loaded in the shooter (drawn at spawn when idle).
  */
-export function drawGameScene(ctx, bc, level, ang, activeBubble, nextColorId, lives) {
+export function drawGameScene(ctx, bc, level, ang, activeBubble, currentColorId, nextColorId, lives) {
   drawBackground(ctx, level);
   drawBubbleCacheLayer(ctx, bc);
   drawHUD(ctx, nextColorId, lives);
   drawShooter(ctx, ang);
+  // Always draw the current bubble — at its live position when flying, at spawn when idle.
+  // Matches Turing which always draws spots(i) at spots(i).x/y (spawn until fired).
   if (activeBubble) {
     drawActiveBubble(ctx, activeBubble.x, activeBubble.y, activeBubble.colorId);
+  } else {
+    drawActiveBubble(ctx, SPAWN_X, SPAWN_Y, currentColorId);
   }
 }
 
