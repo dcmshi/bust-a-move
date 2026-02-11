@@ -186,6 +186,7 @@ web/
 - Falls back to 1–8 if the grid is empty (mid-level-transition edge case)
 
 ### Transparent sprites (`convert-assets.js`)
-- One-time script: reads bubble BMPs + `shooter.bmp`, keys out the top-left pixel colour, writes PNGs to `web/assets/`
-- `assets.js` updated to reference `assets/*.png` for bubbles and shooter
-- Run: `npm install jimp && node convert-assets.js` from the project root
+- Pure Node.js script (no npm needed): reads BMPs, keys out the top-left pixel colour, writes PNGs to `web/assets/`
+- Converted sprites: all 8 bubbles, shooter, gun, man, next label
+- `assets.js` references `assets/*.png` for all converted sprites; remaining UI assets still use `../` BMP paths
+- Run: `node convert-assets.js` from the project root; generated PNGs are committed to the repo
