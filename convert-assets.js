@@ -137,7 +137,7 @@ function keyOutBackground(rgba, width, height, pixelIndex = 0) {
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 const ROOT   = __dirname;
-const INPUT  = path.join(ROOT, 'assets');
+const INPUT  = path.join(ROOT, 'turing_assets');
 const OUTPUT = path.join(ROOT, 'web', 'assets');
 const FILES  = [
   'bluebubble.bmp',

@@ -49,7 +49,7 @@
 
 ```
 /                        ← project root
-assets/                  ← original BMP files
+turing_assets/           ← original BMP files
 music/                   ← original MP3 files
 turing/                  ← Bust-A-Move Bust!.t + .exe (untouched)
 web/

@@ -1,6 +1,6 @@
 # Bust-A-Move Bust!
 
-![Bust-A-Move Bust! title](assets/mainTitle.bmp)
+![Bust-A-Move Bust! title](turing_assets/mainTitle.bmp)
 
 A Bust-A-Move / Bubble Bobble clone written in **Turing** (Open Turing), created as a school project at Turing in June 2007.
 
@@ -91,7 +91,7 @@ Each level plays a different MP3 track using `Music.PlayFileLoop`:
 
 Assets are organised into subfolders:
 
-**`assets/` — Graphics (BMP):**
+**`turing_assets/` — Graphics (BMP):**
 `back`, `bluebubble`, `gameover`, `gameover2`, `greenbubble`, `greybubble`, `gun`, `instructions`, `levelbackground` (×4), `life1/2/3`, `mainTitle`, `man`, `next`, `orangebubble`, `play`, `purplebubble`, `redbubble`, `shooter`, `what`, `whitebubble`, `yellowbubble`
 
 **`music/` — Tracks (MP3):**
