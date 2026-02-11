@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bust-A-Move Bust!</title>
+  <!--
+    Requires a local HTTP server — ES modules don't work over file://
+    Quick options:
+      npx serve web
+      python -m http.server (from the web/ directory)
+      VS Code Live Server (point to web/)
+  -->
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    #wrapper {
+      position: relative;
+      width: 640px;
+      height: 450px;
+    }
+
+    #main-canvas {
+      display: block;
+      image-rendering: pixelated;
+    }
+
+    #loading {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      color: #fff;
+      font-family: monospace;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      letter-spacing: 0.1em;
+    }
+
+    #loading h1 {
+      font-size: 20px;
+      letter-spacing: 0.2em;
+    }
+
+    #loading-bar-wrap {
+      width: 280px;
+      height: 10px;
+      border: 1px solid #fff;
+    }
+
+    #loading-bar {
+      height: 100%;
+      width: 0%;
+      background: #fff;
+      transition: width 80ms linear;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <canvas id="main-canvas" width="640" height="450"></canvas>
+
+    <div id="loading">
+      <h1>BUST-A-MOVE BUST!</h1>
+      <div id="loading-bar-wrap">
+        <div id="loading-bar"></div>
+      </div>
+      <div id="loading-status">Loading assets&hellip;</div>
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

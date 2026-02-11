@@ -1,0 +1,120 @@
+/**
+ * assets.js
+ * Preloads all images and audio. Paths are relative to index.html (web/).
+ * Original BMP/MP3 files live in the project root, referenced via '../'.
+ *
+ * Audio rename map (original → key used here):
+ *   Hellogoodbye - Shimmy Shimmy Quarter Turn.mp3  → audio.intro
+ *   The Postal Service - Such Great Heights.mp3     → audio.track1
+ *   royksopp - Remind Me.mp3                        → audio.track2
+ *   hellogoodbye - here (in your arms).mp3          → audio.track3
+ *   Techno - Sand Storm.mp3                         → audio.track4
+ *   Hot Hot Heat - Talk to Me, Dance With Me.mp3    → audio.win
+ *   Plain White T's.mp3                             → audio.lose
+ */
+
+const IMAGE_MANIFEST = {
+  // UI
+  mainTitle:        '../mainTitle.bmp',
+  play:             '../play.bmp',
+  what:             '../what.bmp',
+  back:             '../back.bmp',
+  instructions:     '../instructions.bmp',
+  next:             '../next.bmp',
+  man:              '../man.bmp',
+  // Shooter
+  shooter:          '../shooter.bmp',
+  gun:              '../gun.bmp',
+  // Lives HUD
+  life1:            '../life1.bmp',
+  life2:            '../life2.bmp',
+  life3:            '../life3.bmp',
+  // Backgrounds (bg1 = levelbackground.bmp, no number suffix in original)
+  bg1:              '../levelbackground.bmp',
+  bg2:              '../levelbackground2.bmp',
+  bg3:              '../levelbackground3.bmp',
+  bg4:              '../levelbackground4.bmp',
+  // Game over screens
+  gameover:         '../gameover.bmp',
+  gameover2:        '../gameover2.bmp',
+  // Bubbles — keys match Turing colour IDs 1–8
+  bubble1:          '../bluebubble.bmp',
+  bubble2:          '../greenbubble.bmp',
+  bubble3:          '../greybubble.bmp',
+  bubble4:          '../orangebubble.bmp',
+  bubble5:          '../purplebubble.bmp',
+  bubble6:          '../yellowbubble.bmp',
+  bubble7:          '../redbubble.bmp',
+  bubble8:          '../whitebubble.bmp',
+};
+
+const AUDIO_MANIFEST = {
+  intro:   '../Hellogoodbye - Shimmy Shimmy Quarter Turn.mp3',
+  track1:  '../The Postal Service - Such Great Heights.mp3',
+  track2:  '../royksopp - Remind Me.mp3',
+  track3:  '../hellogoodbye - here (in your arms).mp3',
+  track4:  '../Techno - Sand Storm.mp3',
+  win:     '../Hot Hot Heat - Talk to Me, Dance With Me.mp3',
+  lose:    "../Plain White T's.mp3",
+};
+
+export const images = {};
+export const audio  = {};
+
+function loadImage(key, src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload  = () => { images[key] = img; resolve(); };
+    img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+    img.src = src;
+  });
+}
+
+function loadAudio(key, src) {
+  // Audio is non-blocking — browser autoplay policy means we can't verify
+  // playback readiness until after the first user gesture anyway.
+  const el = new Audio();
+  el.preload = 'auto';
+  el.loop    = false; // controlled by audio.js
+  el.src     = src;
+  audio[key] = el;
+}
+
+/**
+ * Preload all assets. Calls onProgress(0–1) as images finish loading.
+ * Audio elements are created immediately but not awaited.
+ * @param {(progress: number) => void} [onProgress]
+ */
+export async function loadAll(onProgress) {
+  const entries = Object.entries(IMAGE_MANIFEST);
+  let loaded = 0;
+
+  // Set up audio elements synchronously (no await needed)
+  for (const [key, src] of Object.entries(AUDIO_MANIFEST)) {
+    loadAudio(key, src);
+  }
+
+  // Await all images
+  await Promise.all(
+    entries.map(([key, src]) =>
+      loadImage(key, src).then(() => {
+        loaded++;
+        onProgress?.(loaded / entries.length);
+      })
+    )
+  );
+}
+
+/** Get bubble image by Turing colour ID (1–8). */
+export function getBubbleImage(colourId) {
+  return images[`bubble${colourId}`];
+}
+
+/**
+ * Get background image for a given level (1–12).
+ * Pattern mirrors the original: bg2, bg3, bg4, bg1, bg2, bg3, bg4, bg1 …
+ */
+export function getBackground(level) {
+  const cycle = ['bg2', 'bg3', 'bg4', 'bg1'];
+  return images[cycle[(level - 1) % 4]];
+}
