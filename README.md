@@ -100,6 +100,12 @@ All assets are in the project root alongside the source file.
 
 ---
 
+## Play Now
+
+**[https://bust-a-move.onrender.com](https://bust-a-move.onrender.com)**
+
+---
+
 ## Running the Game
 
 ### Option 1: Browser port (JavaScript)
@@ -115,13 +121,16 @@ Then open **`http://localhost:3000/web/`** in your browser.
 
 > Serve from the project root (`.`), not `web/` — the assets (BMP/MP3) live in the root and are referenced via `../` from `web/src/assets.js`.
 
-### Option 2: Deploy to Render (live link)
-1. Fork / push this repo to GitHub.
-2. Go to [render.com](https://render.com) → **New → Blueprint** and connect the repo.
-   Render picks up `render.yaml` automatically and creates a static site.
-3. Once deployed, the live URL (e.g. `https://bust-a-move.onrender.com`) redirects to the game.
+### Option 2: Deploy to Render
+The live deployment at **[https://bust-a-move.onrender.com](https://bust-a-move.onrender.com)** is hosted on Render as a static site.
 
-> The root `index.html` redirects visitors to `/web/` where the game lives. BMP and MP3 assets are served from the project root alongside it.
+To redeploy or fork your own instance:
+1. Push this repo to GitHub.
+2. Go to [render.com](https://render.com) → **New → Blueprint** and connect the repo.
+3. Render picks up `render.yaml` automatically and creates a static site.
+4. The root `index.html` redirects visitors to `/web/` where the game lives.
+
+> BMP and MP3 assets are served from the project root and referenced via `../` from `web/src/assets.js`.
 
 ### Option 3: Pre-compiled executable
 Double-click `Bust-A-Move Bust!.exe`. Requires all BMP and MP3 files to be in the same directory.
