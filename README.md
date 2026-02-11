@@ -1,5 +1,7 @@
 # Bust-A-Move Bust!
 
+![Bust-A-Move Bust! title](mainTitle.bmp)
+
 A Bust-A-Move / Bubble Bobble clone written in **Turing** (Open Turing), created as a school project at Turing in June 2007.
 
 **Authors:** David Shi & Jason Hwang
