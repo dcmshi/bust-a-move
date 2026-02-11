@@ -2,7 +2,7 @@
 
 A Bust-A-Move / Bubble Bobble clone written in **Turing** (Open Turing), created as a school project at Turing in June 2007.
 
-**Author:** David Shi
+**Authors:** David Shi & Jason Hwang
 **Date:** June 13, 2007
 **Language:** [Open Turing](http://tristan.hume.ca/openturing/) (`.t`)
 
