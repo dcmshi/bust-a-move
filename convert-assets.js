@@ -147,6 +147,9 @@ const FILES  = [
   'redbubble.bmp',
   'whitebubble.bmp',
   'shooter.bmp',
+  'gun.bmp',
+  'man.bmp',
+  'next.bmp',
 ];
 
 if (!fs.existsSync(OUTPUT)) fs.mkdirSync(OUTPUT, { recursive: true });
