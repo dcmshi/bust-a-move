@@ -115,10 +115,18 @@ Then open **`http://localhost:3000/web/`** in your browser.
 
 > Serve from the project root (`.`), not `web/` — the assets (BMP/MP3) live in the root and are referenced via `../` from `web/src/assets.js`.
 
-### Option 2: Pre-compiled executable
+### Option 2: Deploy to Render (live link)
+1. Fork / push this repo to GitHub.
+2. Go to [render.com](https://render.com) → **New → Blueprint** and connect the repo.
+   Render picks up `render.yaml` automatically and creates a static site.
+3. Once deployed, the live URL (e.g. `https://bust-a-move.onrender.com`) redirects to the game.
+
+> The root `index.html` redirects visitors to `/web/` where the game lives. BMP and MP3 assets are served from the project root alongside it.
+
+### Option 3: Pre-compiled executable
 Double-click `Bust-A-Move Bust!.exe`. Requires all BMP and MP3 files to be in the same directory.
 
-### Option 3: Open Turing IDE
+### Option 4: Open Turing IDE
 1. Install [Open Turing](http://tristan.hume.ca/openturing/).
 2. Open `Bust-A-Move Bust!.t` in the IDE.
 3. Press **F2** (or Run → Run) to start.
