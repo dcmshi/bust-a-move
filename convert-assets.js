@@ -124,9 +124,10 @@ function decodeBMP(buf) {
 
 // ── Transparency ──────────────────────────────────────────────────────────────
 
-function keyOutBackground(rgba, width, height) {
-  // Use the top-left pixel colour as the background key
-  const bgR = rgba[0], bgG = rgba[1], bgB = rgba[2];
+function keyOutBackground(rgba, width, height, pixelIndex = 0) {
+  // Sample the key colour from the given pixel index (default: top-left = 0).
+  const d0 = pixelIndex * 4;
+  const bgR = rgba[d0], bgG = rgba[d0 + 1], bgB = rgba[d0 + 2];
   for (let i = 0; i < width * height; i++) {
     const d = i * 4;
     if (rgba[d] === bgR && rgba[d+1] === bgG && rgba[d+2] === bgB) rgba[d+3] = 0;
@@ -161,7 +162,9 @@ for (const filename of FILES) {
   const dest = path.join(OUTPUT, filename.replace('.bmp', '.png'));
   try {
     const { width, height, rgba } = decodeBMP(fs.readFileSync(src));
-    keyOutBackground(rgba, width, height);
+    // next.bmp: use bottom-right pixel as the background key (top-left is part of the label)
+    const pixelIndex = filename === 'next.bmp' ? width * height - 1 : 0;
+    keyOutBackground(rgba, width, height, pixelIndex);
     fs.writeFileSync(dest, encodePNG(width, height, rgba));
     console.log(`  ✓  ${filename.padEnd(22)} → web/assets/${path.basename(dest)}`);
     ok++;
