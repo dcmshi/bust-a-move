@@ -52,6 +52,32 @@ canvas.addEventListener('mousedown',  e => {
 canvas.addEventListener('mouseup',    e => { updateMousePos(e); mouse.down = false; });
 canvas.addEventListener('mouseleave', () => { mouse.down = false; });
 
+function updateTouchPos(touch) {
+  const rect   = canvas.getBoundingClientRect();
+  const scaleX = canvas.width  / rect.width;
+  const scaleY = canvas.height / rect.height;
+  mouse.x = (touch.clientX - rect.left) * scaleX;
+  mouse.y = (touch.clientY - rect.top)  * scaleY;
+}
+
+canvas.addEventListener('touchstart', e => {
+  e.preventDefault();
+  updateTouchPos(e.touches[0]);
+  mouse.down    = true;
+  mouse.clicked = true;
+}, { passive: false });
+
+canvas.addEventListener('touchmove', e => {
+  e.preventDefault();
+  updateTouchPos(e.touches[0]);
+}, { passive: false });
+
+canvas.addEventListener('touchend', e => {
+  e.preventDefault();
+  if (e.changedTouches[0]) updateTouchPos(e.changedTouches[0]);
+  mouse.down = false;
+}, { passive: false });
+
 /**
  * Returns true if the given key is currently held.
  * @param {string} key  e.g. 'ArrowLeft', 'ArrowRight', ' '

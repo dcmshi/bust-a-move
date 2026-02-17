@@ -16,7 +16,7 @@
  *   render(ctx)
  */
 
-import { keys }                                from '../input.js';
+import { keys, mouse }                         from '../input.js';
 import * as audio                              from '../audio.js';
 import { createGrid, snapToGrid, ROWS, COLS } from '../game/grid.js';
 import { fillLevel, trackForLevel, LEVEL_COUNT } from '../game/levels.js';
@@ -26,6 +26,8 @@ import {
   applyWallBounce,
   isCeiling,
   isNearBubble,
+  SPAWN_X,
+  SPAWN_Y,
 } from '../game/bubble.js';
 import { checkAndPop }      from '../game/colourCheck.js';
 import { dropDisconnected } from '../game/ballDrop.js';
@@ -135,6 +137,18 @@ export function update() {
     state        = 'flying';
   }
   spaceWasDown = spaceDown;
+
+  // ── Tap / click to aim and fire ──────────────────────────────────────────────
+  if (state === 'idle' && mouse.clicked) {
+    const dx = mouse.x - SPAWN_X;
+    const dy = SPAWN_Y - mouse.y;   // flip: canvas y is downward
+    if (dy > 0) {                   // only when tapping above the shooter
+      const tapAng = Math.atan2(dy, dx) * 180 / Math.PI;
+      ang          = Math.max(30, Math.min(150, tapAng));
+      activeBubble = createBubble(ang, currentColorId);
+      state        = 'flying';
+    }
+  }
 
   // ── Move ────────────────────────────────────────────────────────────────────
   if (state === 'flying') {
