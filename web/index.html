@@ -79,6 +79,7 @@
       background: rgba(0, 0, 0, 0.45);
       border-radius: 6px;
       padding: 4px 8px;
+      touch-action: manipulation;
     }
 
     #mute-btn {
@@ -90,6 +91,7 @@
       padding: 0;
       color: #fff;
       user-select: none;
+      touch-action: manipulation;
     }
 
     #vol-slider {
@@ -157,11 +159,21 @@
       }
     });
 
-    muteBtn.addEventListener('click', () => {
+    function toggleMute() {
       const nowMuted = !getMuted();
       setMuted(nowMuted);
       muteBtn.textContent = nowMuted ? '🔇' : '🔊';
-    });
+    }
+
+    muteBtn.addEventListener('click', toggleMute);
+
+    // Explicit touch handler: canvas's touchstart calls preventDefault() which
+    // suppresses the synthesised click event, so we handle touch directly.
+    muteBtn.addEventListener('touchend', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleMute();
+    }, { passive: false });
   </script>
 </body>
 </html>
