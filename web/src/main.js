@@ -58,10 +58,18 @@ function switchTo(key) {
 
 // ── Game loop ─────────────────────────────────────────────────────────────────
 
-function loop() {
+let lastTime = null;
+
+function loop(timestamp) {
   requestAnimationFrame(loop);
 
-  const next = currentScene.update();
+  // Compute delta time in seconds; skip the very first frame (no previous time).
+  // Cap at 100 ms so a background tab resuming doesn't cause a huge jump.
+  if (lastTime === null) { lastTime = timestamp; return; }
+  const dt = Math.min((timestamp - lastTime) / 1000, 0.1);
+  lastTime = timestamp;
+
+  const next = currentScene.update(dt);
   currentScene.render(ctx);
 
   // Transition after render so the last frame of the current scene is visible

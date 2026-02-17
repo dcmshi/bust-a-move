@@ -25,7 +25,7 @@ import { CELL_CENTERS, ROWS, COLS } from './grid.js';
 
 export const SPAWN_X   = 318;   // canvas centre X at spawn
 export const SPAWN_Y   = 395;   // canvas centre Y at spawn
-export const SPEED     = 6;     // px per frame (fixed, matches original)
+export const SPEED     = 360;   // px per second (6 px/frame × 60 fps)
 export const WALL_LEFT = 206;   // cx <= this  → reverse vx (left wall)
 export const WALL_RIGHT= 436;   // cx >= this  → reverse vx (right wall)
 export const CEILING_Y = 64;    // cy <= this  → bubble has hit the ceiling
@@ -55,12 +55,13 @@ export function createBubble(ang, colorId) {
 // ── Per-frame update ──────────────────────────────────────────────────────────
 
 /**
- * Advance the bubble by one frame (add velocity).
+ * Advance the bubble by dt seconds.
  * @param {{ x, y, vx, vy }} bubble  Mutated in place.
+ * @param {number} dt  Seconds since last frame.
  */
-export function moveBubble(bubble) {
-  bubble.x += bubble.vx;
-  bubble.y += bubble.vy;
+export function moveBubble(bubble, dt) {
+  bubble.x += bubble.vx * dt;
+  bubble.y += bubble.vy * dt;
 }
 
 /**

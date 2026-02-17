@@ -125,7 +125,7 @@ export function enter() {
  * Process one frame of game logic.
  * @returns {string|null}  Scene key for transition, or null to stay.
  */
-export function update() {
+export function update(dt) {
   // ── Angle control (always active, even while flying) ───────────────────────
   if (keys.has('ArrowLeft'))  ang = Math.min(ang + 1, 150);
   if (keys.has('ArrowRight')) ang = Math.max(ang - 1, 30);
@@ -152,7 +152,7 @@ export function update() {
 
   // ── Move ────────────────────────────────────────────────────────────────────
   if (state === 'flying') {
-    moveBubble(activeBubble);
+    moveBubble(activeBubble, dt);
     applyWallBounce(activeBubble);
 
     const shouldLand = isCeiling(activeBubble) || isNearBubble(activeBubble, grid);
