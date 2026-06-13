@@ -3,12 +3,9 @@
  * Keyboard and mouse state, polled each frame.
  * Mouse coordinates are in canvas space (origin top-left).
  *
- * Turing uses bottom-left origin (y=0 at bottom, increases upward).
- * Canvas uses top-left origin (y=0 at top, increases downward).
- * Use ty(turingY) to convert when comparing against original Turing coordinates.
- *
- *   canvasY  = 449 - turingY
- *   turingY  = 449 - canvasY
+ * Turing uses bottom-left origin (y=0 at bottom, increases upward);
+ * canvas uses top-left origin (y=0 at top, increases downward). The
+ * Turing→canvas coordinate conversion lives in renderer.js (tY).
  */
 
 const canvas = document.getElementById('main-canvas');
@@ -34,6 +31,10 @@ window.addEventListener('keydown', e => {
 window.addEventListener('keyup', e => {
   keys.delete(e.key);
 });
+
+// Drop all held keys when the window loses focus. Otherwise a key held during
+// an alt-tab never fires its keyup, leaving the shooter rotating on return.
+window.addEventListener('blur', () => keys.clear());
 
 function updateMousePos(e) {
   const rect   = canvas.getBoundingClientRect();
@@ -84,15 +85,6 @@ canvas.addEventListener('touchend', e => {
  */
 export function isDown(key) {
   return keys.has(key);
-}
-
-/**
- * Convert a Turing Y coordinate to canvas Y coordinate.
- * @param {number} turingY  Y value in Turing space (0 = bottom of 450px screen)
- * @returns {number}        Y value in canvas space (0 = top)
- */
-export function ty(turingY) {
-  return 449 - turingY;
 }
 
 /**

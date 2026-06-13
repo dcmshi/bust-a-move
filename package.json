@@ -1,0 +1,11 @@
+{
+  "name": "bust-a-move-bust",
+  "version": "1.0.0",
+  "description": "Browser port of the Turing game Bust-A-Move Bust!",
+  "private": true,
+  "scripts": {
+    "serve": "npx serve .",
+    "test": "node --test",
+    "convert-assets": "node convert-assets.js"
+  }
+}

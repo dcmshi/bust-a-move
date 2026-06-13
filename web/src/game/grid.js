@@ -107,12 +107,12 @@ export function getNeighbors(col, row) {
  * @param {number} bx    Bubble centre X in canvas space
  * @param {number} by    Bubble centre Y in canvas space
  * @param {number[][]} grid  Current grid state (grid[row][col], 0 = empty)
- * @returns {{ col: number, row: number }}
+ * @returns {{ col: number, row: number } | null}  null if the grid is full.
  */
 export function snapToGrid(bx, by, grid) {
   let closestDist = Infinity;
-  let snapCol = 0;
-  let snapRow = 0;
+  let snapCol = -1;
+  let snapRow = -1;
 
   for (let row = 0; row < ROWS; row++) {
     for (let col = 0; col < COLS; col++) {
@@ -129,6 +129,8 @@ export function snapToGrid(bx, by, grid) {
     }
   }
 
+  // No empty slot anywhere — grid is full. Caller decides what to do.
+  if (snapCol === -1) return null;
   return { col: snapCol, row: snapRow };
 }
 

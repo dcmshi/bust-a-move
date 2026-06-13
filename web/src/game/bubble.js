@@ -67,10 +67,16 @@ export function moveBubble(bubble, dt) {
 /**
  * Reverse vx if the bubble has crossed a side wall.
  * Matches Turing's `wall` proc: `vx *= -1`.
+ *
+ * The check is direction-aware (only bounce when actually heading INTO the
+ * wall), not purely position-based. On a slow frame the dt cap allows a shot
+ * to overshoot the wall by ~30px; a position-only check could then flip the
+ * sign every frame and leave the bubble vibrating against the wall.
  * @param {{ x, vx }} bubble  Mutated in place.
  */
 export function applyWallBounce(bubble) {
-  if (bubble.x <= WALL_LEFT || bubble.x >= WALL_RIGHT) {
+  if ((bubble.x <= WALL_LEFT && bubble.vx < 0) ||
+      (bubble.x >= WALL_RIGHT && bubble.vx > 0)) {
     bubble.vx = -bubble.vx;
   }
 }

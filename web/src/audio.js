@@ -64,9 +64,6 @@ export function setMuted(muted) {
   _applyVolumeAll();
 }
 
-/** Current volume (0–1). */
-export function getVolume() { return _volume; }
-
 /** Whether audio is currently muted. */
 export function getMuted()  { return _muted; }
 
@@ -100,17 +97,4 @@ export function stop() {
     el.currentTime = 0;
   }
   currentKey = null;
-}
-
-/**
- * Play a track once (non-looping). Used for short sound effects if needed.
- * @param {string} key
- */
-export function playOnce(key) {
-  const el = audioMap[key];
-  if (!el) return;
-  el.loop        = false;
-  el.currentTime = 0;
-  _applyVolume(el);
-  el.play().catch(() => {});
 }

@@ -163,12 +163,14 @@ export function update(dt) {
 
   // ── Land (one-frame processing) ─────────────────────────────────────────────
   if (state === 'landing') {
-    // 1. Snap to nearest empty cell
-    const { col, row } = snapToGrid(activeBubble.x, activeBubble.y, grid);
-    grid[row][col] = activeBubble.colorId;
-
-    // 2. Check for colour match and pop (BFS)
-    checkAndPop(grid, col, row);
+    // 1. Snap to nearest empty cell. A null result means the grid is full;
+    //    the last-row check below will end the game, so just drop the shot.
+    const snap = snapToGrid(activeBubble.x, activeBubble.y, grid);
+    if (snap) {
+      grid[snap.row][snap.col] = activeBubble.colorId;
+      // 2. Check for colour match and pop (BFS)
+      checkAndPop(grid, snap.col, snap.row);
+    }
 
     // 3. Remove disconnected bubbles
     dropDisconnected(grid);
