@@ -2,4 +2,7 @@ services:
   - type: web
     name: bust-a-move
     env: static
+    # No build needed — the site is plain static files. Set explicitly so the
+    # root package.json doesn't trigger an auto-detected `npm run build`.
+    buildCommand: echo "no build step"
     staticPublishPath: .
