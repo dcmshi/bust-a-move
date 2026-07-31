@@ -6,3 +6,10 @@ services:
     # root package.json doesn't trigger an auto-detected `npm run build`.
     buildCommand: echo "no build step"
     staticPublishPath: .
+    # Exact match on the root only, so /robots.txt, /sitemap.xml and /og-image.png
+    # keep serving normally. A rewrite would break the game: web/index.html loads
+    # src/main.js and assets/ by relative path.
+    routes:
+      - type: redirect
+        source: /
+        destination: /web/

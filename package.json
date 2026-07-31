@@ -1,7 +1,7 @@
 {
-  "name": "bust-a-move-bust",
+  "name": "bust-a-move-bash",
   "version": "1.0.0",
-  "description": "Browser port of the Turing game Bust-A-Move Bust!",
+  "description": "Browser port of the Turing game Bust-A-Move Bash!",
   "private": true,
   "scripts": {
     "serve": "npx serve .",

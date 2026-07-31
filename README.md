@@ -1,6 +1,6 @@
-# Bust-A-Move Bust!
+# Bust-A-Move Bash!
 
-![Bust-A-Move Bust! title](turing_assets/mainTitle.bmp)
+![Bust-A-Move Bash! title](turing_assets/mainTitle.bmp)
 
 A Bust-A-Move / Bubble Bobble clone written in **Turing** (Open Turing), created as a school project at Turing in June 2007.
 
@@ -12,7 +12,7 @@ A Bust-A-Move / Bubble Bobble clone written in **Turing** (Open Turing), created
 
 ## About
 
-Bust-A-Move Bust! is a faithful imitation of the classic arcade game *Bubble Bobble* / *Bust-A-Move*. Most graphics are sourced from the original game. Core gameplay is preserved, with some additional features including background music, a lives system, and no score tracking.
+Bust-A-Move Bash! is a faithful imitation of the classic arcade game *Bubble Bobble* / *Bust-A-Move*. Most graphics are sourced from the original game. Core gameplay is preserved, with some additional features including background music, a lives system, and no score tracking.
 
 The goal is to clear all bubbles from the board by shooting bubbles from a cannon at the bottom of the screen. Matching 3 or more connected bubbles of the same color causes them to pop. Any bubbles left floating with no connection to the ceiling also fall off. Clear all 12 levels to win.
 
@@ -104,13 +104,17 @@ Assets are organised into subfolders:
 `Bust-A-Move Bust!.t` — Turing source file.
 `Bust-A-Move Bust!.exe` — pre-compiled Windows executable for running without the Turing IDE.
 
+> These two files keep their original 2007 filenames, which spell the title
+> "Bust!" rather than "Bash!" as the title screen does. The directory is kept
+> untouched as an archive of the original submission.
+
 ---
 
 ## Play Now
 
 **[https://bust-a-move.onrender.com](https://bust-a-move.onrender.com)**
 
-![Bust-A-Move Bust! screenshot](game_screenshot.png)
+![Bust-A-Move Bash! screenshot](game_screenshot.png)
 
 ---
 
