@@ -6,21 +6,14 @@ services:
     # root package.json doesn't trigger an auto-detected `npm run build`.
     buildCommand: echo "no build step"
     staticPublishPath: .
-    # NOTE: currently inert. Render only reads this file for Blueprint-managed
-    # services, and this one was created through the dashboard — verified after
-    # deploy, where / still returned 200 rather than a 301. The live redirect is
-    # configured under the service's Redirects/Rewrites settings; keep the two in
-    # sync, and this block takes over if the service is ever moved to a Blueprint.
+    # Static files take precedence over these rules, so this only fires because
+    # there is no index.html at the repo root — adding one back would silently
+    # shadow the redirect and serve the file instead.
     #
     # Exact match on the root only, so /robots.txt, /sitemap.xml and /og-image.png
     # keep serving normally. A rewrite would break the game: web/index.html loads
     # src/main.js and assets/ by relative path.
     routes:
-      # Temporary diagnostic: no file exists at this path, so if it redirects
-      # while / does not, static files are shadowing the / rule.
-      - type: redirect
-        source: /_redirect-probe
-        destination: /web/
       - type: redirect
         source: /
         destination: /web/

@@ -137,7 +137,9 @@ To redeploy or fork your own instance:
 1. Push this repo to GitHub.
 2. Go to [render.com](https://render.com) → **New → Blueprint** and connect the repo.
 3. Render picks up `render.yaml` automatically and creates a static site.
-4. The root `index.html` redirects visitors to `/web/` where the game lives.
+4. The `routes` rule in `render.yaml` serves a 301 from `/` to `/web/`, where the
+   game lives. There is deliberately no `index.html` at the repo root — a static
+   file at that path takes precedence over the rule and would shadow the redirect.
 
 > BMP and MP3 assets are served from the project root and referenced via `../` from `web/src/assets.js`.
 
