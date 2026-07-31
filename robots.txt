@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /turing/
+Disallow: /turing_assets/
+Disallow: /test/
+
+Sitemap: https://bust-a-move.onrender.com/sitemap.xml
