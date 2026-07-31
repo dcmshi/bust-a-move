@@ -16,6 +16,11 @@ services:
     # keep serving normally. A rewrite would break the game: web/index.html loads
     # src/main.js and assets/ by relative path.
     routes:
+      # Temporary diagnostic: no file exists at this path, so if it redirects
+      # while / does not, static files are shadowing the / rule.
+      - type: redirect
+        source: /_redirect-probe
+        destination: /web/
       - type: redirect
         source: /
         destination: /web/
